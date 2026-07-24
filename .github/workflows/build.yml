@@ -28,8 +28,11 @@ jobs:
         pip install --upgrade pip
         pip install "cython<3.0.0" buildozer
 
-    - name: Build APK with Buildozer
+    - name: Accept Android SDK Licenses & Build APK
       run: |
+        # Автоматически принимаем все лицензии Android SDK
+        yes | buildozer android update || true
+        # Запускаем финальную сборку
         buildozer -v android debug
 
     - name: Upload APK Artifact
@@ -37,4 +40,3 @@ jobs:
       with:
         name: jarvis-calculator-apk
         path: bin/*.apk
-
